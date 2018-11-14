@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsl.mapper.AllMapperCustom" >
+  
+	<select id="selOwnerAndUser" resultType="com.tsl.pojo.All" parameterType="String">
+		select * from t_owner as a left join t_user as b on a.owner_id=b.owner_id where 1=1
+		<if test="str!='' and str!=null">
+			and a.oname like '%${str}%'
+			or a.phone  like '%${str}%'
+			or a.remarks  like '%${str}%'
+			or b.username  like '%${str}%'
+		</if>
+	</select>
+	
+	<select id="selBuildingAndOwner" resultType="com.tsl.pojo.All" parameterType="String">
+		select * from t_building as a left join t_owner as b on a.owner_id=b.owner_id where 1=1
+		<if test="str!='' and str!=null">
+			and a.bname like '%${str}%'
+			or a.address  like '%${str}%'
+			or a.space  like '%${str}%'
+			or a.state  like '%${str}%'
+			or b.oname  like '%${str}%'
+			or b.phone  like '%${str}%'
+		</if>
+	</select>
+	
+	<select id="selParkingAndOwner" resultType="com.tsl.pojo.All" parameterType="String">
+		select * from t_parking as a left join t_owner as b on a.owner_id=b.owner_id where 1=1
+		<if test="str!='' and str!=null">
+			and a.number  like '%${str}%'
+			or a.state  like '%${str}%'
+			or b.oname  like '%${str}%'
+			or b.phone  like '%${str}%'
+		</if>
+	</select>
+	
+	<select id="selCostAndOwner" resultType="com.tsl.pojo.All" parameterType="String">
+		select * from t_cost as a left join t_owner as b on a.owner_id=b.owner_id where 1=1
+		<if test="str!='' and str!=null">
+			and a.cname  like '%${str}%'
+			or a.state  like '%${str}%'
+			or b.oname  like '%${str}%'
+			or b.phone  like '%${str}%'
+		</if>
+	</select>
+	
+	<select id="selMessageAndOwner" resultType="com.tsl.pojo.All" parameterType="String">
+		select * from t_message as a left join t_owner as b on a.owner_id=b.owner_id where 1=1
+		<if test="str!='' and str!=null">
+			and a.mname  like '%${str}%'
+			or a.state  like '%${str}%'
+			or a.remarks  like '%${str}%'
+			or b.oname  like '%${str}%'
+			or b.phone  like '%${str}%'
+		</if>
+	</select>
+	
+	<select id="selUserAndOwner" resultType="com.tsl.pojo.All" parameterType="String">
+		select * from t_user as a left join t_owner as b on a.owner_id=b.owner_id where 1=1
+		<if test="str!='' and str!=null">
+			and a.username  like '%${str}%'
+			or a.type  like '%${str}%'
+			or b.oname  like '%${str}%'
+			or b.phone  like '%${str}%'
+		</if>
+	</select>
+	
+	<select id="selAddress" resultType="String">
+		select address from t_building GROUP BY address
+	</select>
+	
+	<select id="selBuildingIdByName" resultType="Integer"  parameterType="String">
+		select building_id from t_building where bname=#{name}
+	</select>
+	
+	<update id="setBuildOwneridForNull"  parameterType="Integer">
+		update t_building set owner_id=null,state='空闲' where building_id=#{building_id}
+	</update>
+	
+	<update id="setParkingOwneridForNull"  parameterType="Integer">
+		update t_parking set owner_id=null,state='空闲' where parking_id=#{parking_id}
+	</update>
+	
+	<select id="selParkingNum" resultType="String">
+		select number from t_parking where state='空闲'
+	</select>
+</mapper>

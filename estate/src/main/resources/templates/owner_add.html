@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>新增产品分类</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link th:href="@{/static/style/adminStyle.css}" rel="stylesheet"
+	type="text/css" />
+<script th:src="@{/static/js/jquery.js}"></script>
+<script th:src="@{/static/js/myWrite.js}"></script>
+</head>
+<body>
+<form action="" method="post">
+	<div class="wrap">
+		<div class="page-title">
+			<span class="modular fl"><i></i><em>添加业主</em></span>
+		</div>
+
+		<table class="list-style">
+			<tr>
+				<td style="text-align: right; width: 15%;">姓名：</td>
+				<td><input id="name" type="text" class="textBox" /></td>
+			</tr>
+			<tr>
+				<td style="text-align: right; width: 15%;">电话：</td>
+				<td><input id="phone" type="text" class="textBox" /></td>
+			</tr>
+			<tr>
+				<td style="text-align: right; width: 10%;">住房信息：</td>
+				<td><select id="addr" name="addr" onchange="sele_Change()" class="textBox">
+						<option value="0">选择楼房</option>
+						<option th:each="arrayS:${address}" th:text="${arrayS}"
+							th:selected="${arrayS eq '${arrayS}'}">某分类</option>
+				</select>
+				<select id="room" name="room" class="textBox">
+						<option value="0">选择房间</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">出售/出租：</td>
+				<td><input id="state" name="state" type="radio" value="出租" checked="checked">出租</input>
+					<input id="state" name="state" type="radio" value="出售">出售</input>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">备注：</td>
+				<td><textarea id="remarks" class="textarea"></textarea></td>
+			</tr>
+			<tr>
+				<td style="text-align: right;"></td>
+				<td><input onclick="addOwner()" type="button" value="保存" class="tdBtn" /></td>
+			</tr>
+		</table>
+	</div>
+</form>
+<script>
+function addOwner() {
+	var name = $("#name").val();
+	var phone = $("#phone").val();
+	var building_id = $("#room").val();
+	var state = $("#state").val();
+	var remarks = $("#remarks").val();
+	if(name==null||phone==null||building_id==0||state==null){
+		alert("您还没填完哦");
+		return false;
+	}
+	if(!(/^1[34578]\d{9}$/.test(phone))){ 
+        alert("手机号码有误，请重填");  
+        return false; 
+    } 
+	$.ajax({
+		url : "/owner/add",
+		type : "POST",
+		contentType : "application/json;charset=utf-8",
+		data : JSON.stringify({
+			oname : name,
+			phone : phone,
+			building_id : building_id,
+			state : state,
+			remarks : remarks
+		}) ,
+		success : function(data) {
+			if (data.isSuccess == true) {
+				alert(data.message);
+				window.location.href="list";
+			} else {
+				alert(data.message);
+			}
+		}
+	});
+}
+</script>
+</body>
+</html>

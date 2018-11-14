@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>更新</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link th:href="@{/static/style/adminStyle.css}" rel="stylesheet"
+	type="text/css" />
+<script th:src="@{/static/js/jquery.js}"></script>
+<script th:src="@{/static/js/myWrite.js}"></script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="page-title">
+			<span class="modular fl"><i class="edit_user"></i><em>更新房间信息
+			</em></span>
+		</div>
+		<form action="" method="post" id="updForm">
+			<input id="owner_id" th:value="${owner.ownerId}" type="hidden" /> <input
+				id="old_bid" th:value="${building.buildingId}" type="hidden" />
+			<table class="list-style">
+				<tr>
+					<td style="text-align: right;">房间名：</td>
+					<td><input id="bname" th:value="${building.bname}" type="text"
+						class="textBox length-middle" value="5000000" disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td style="width: 15%; text-align: right;">姓名：</td>
+					<td><input id="oname" th:value="${owner.oname}" type="text"
+						class="textBox length-middle" value="DeathGhost"
+						disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td style="text-align: right;">手机号码：</td>
+					<td><input id="phone" th:value="${owner.phone}" type="text"
+						class="textBox length-middle" value="18309275673"
+						disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td style="text-align: right; width: 10%;">更换新的住房信息：</td>
+					<td><select id="addr" name="addr" onchange="sele_Change()"
+						class="textBox">
+							<option value="0">选择楼房</option>
+							<option th:each="arrayS:${address}" th:text="${arrayS}">某分类</option>
+					</select> <select id="room" name="room" class="textBox">
+							<option value="0">选择房间</option>
+					</select></td>
+				</tr>
+
+				<tr>
+
+					<tr>
+						<td style="text-align: right;"></td>
+						<td><input onclick="updById()" type="button" class="tdBtn"
+							value="更新保存" /></td>
+					</tr>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<script>
+		function updById() {
+			var old_bid = $("#old_bid").val();
+			var new_bid = $("#room").val();
+			var owner_id = $("#owner_id").val();
+			$.post("/building/upd", {
+				old_bid : old_bid,
+				new_bid : new_bid,
+				owner_id : owner_id
+			}, function(data) {
+				if (data.isSuccess == true) {
+					alert(data.message);
+					window.location.href = "list";
+					//$(location).attr('href','user/selectAll');
+				} else {
+					alert(data.message);
+				}
+			}, "json");
+		}
+	</script>
+</body>
+</html>

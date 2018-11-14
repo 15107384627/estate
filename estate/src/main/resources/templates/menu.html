@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>左侧导航</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link th:href="@{/static/style/adminStyle.css}" rel="stylesheet"
+	type="text/css" />
+<script th:src="@{/static/js/jquery.js}"></script>
+<script th:src="@{/static/js/public.js}"></script>
+</head>
+<body style="background: #313131">
+	<div th:if="${session.usertype} == 管理员" class="menu-list">
+		<ul>
+			<li class="menu-list-title"><span>基本信息管理</span> <i>◢</i></li>
+			<li>
+				<ul class="menu-children">
+					<li><a href="/owner/list" target="mainCont">业主信息列表</a></li>
+					<li><a href="/owner/addinfo" target="mainCont">添加业主</a></li>
+					<li><a href="/building/list" target="mainCont">房屋信息列表</a></li>
+					<li><a href="/parking/list" target="mainCont">车位信息列表</a></li>
+				</ul>
+			</li>
+
+			<li class="menu-list-title"><span>业务信息管理</span> <i>◢</i></li>
+			<li>
+				<ul class="menu-children">
+					<li><a href="/cost/list" target="mainCont">费用信息列表</a></li>
+				</ul>
+			</li>
+
+			<li class="menu-list-title"><span>故障信息管理</span> <i>◢</i></li>
+			<li>
+				<ul class="menu-children">
+					<li><a href="/message/list" target="mainCont">故障信息列表</a></li>
+				</ul>
+			</li>
+
+			<li class="menu-list-title"><span>用户信息管理</span> <i>◢</i></li>
+			<li>
+				<ul class="menu-children">
+					<li><a href="/user/list" target="mainCont">用户信息列表</a></li>
+				</ul>
+			</li>
+
+		</ul>
+	</div>
+	
+	<div th:if="${session.usertype} == 普通用户" class="menu-list">
+		<ul>
+			<li class="menu-list-title"><span>基本信息管理</span> <i>◢</i></li>
+			<li>
+				<ul class="menu-children">
+					<li><a href="/building/list" target="mainCont">房屋信息列表</a></li>
+					<li><a href="/parking/list" target="mainCont">车位信息列表</a></li>
+				</ul>
+			</li>
+
+			<li class="menu-list-title"><span>业务信息管理</span> <i>◢</i></li>
+			<li>
+				<ul class="menu-children">
+					<li><a href="/cost/normal_list" target="mainCont">我的费用列表</a></li>
+				</ul>
+			</li>
+
+			<li class="menu-list-title"><span>故障信息管理</span> <i>◢</i></li>
+			<li>
+				<ul class="menu-children">
+					<li><a href="/message/normal_list" target="mainCont">我的故障列表</a></li>
+					<li><a href="/message/addinfo" target="mainCont">我要报修</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

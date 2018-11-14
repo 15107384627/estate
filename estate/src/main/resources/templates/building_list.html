@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>房屋信息列表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link th:href="@{/static/style/adminStyle.css}" rel="stylesheet"
+	type="text/css" />
+<script th:src="@{/static/js/jquery.js}"></script>
+<script th:src="@{/static/js/public.js}"></script>
+</head>
+<body>
+	<div th:if="${session.usertype} == 管理员" class="wrap">
+		<div class="page-title">
+			<span class="modular fl"><i></i><em>房屋信息列表</em></span>
+		</div>
+		<div class="operate">
+			<form action="list" method="post">
+				<input id="search" name="search" type="text"
+					class="textBox length-long" placeholder="搜索..." /> <input
+					type="submit" value="查询" class="tdBtn" />
+			</form>
+		</div>
+		<table class="list-style Interlaced">
+			<tr>
+				<th>ID编号</th>
+				<th>名称</th>
+				<th>位置</th>
+				<th>面积</th>
+				<th>状态</th>
+				<th>住户姓名</th>
+				<th>电话</th>
+				<th>操作</th>
+			</tr>
+			<tr th:each="person:${list}">
+				<td th:text="${personStat.index+1}" class="center" style="width: 70px"><span><i>0</i></span></td>
+				<td th:text="${person.bname}" class="center"><span>asd</span></td>
+				<td th:text="${person.address}" class="center"><span>asd</span></td>
+				<td th:text="${person.space}" class="center"><span>asd</span></td>
+				<td th:text="${person.state}" class="center"><span> <i>￥</i> <em>0.00</em>
+				</span></td>
+				<td th:text="${person.oname}" class="center"><span>asd</span></td>
+				<td th:text="${person.phone}" class="center"><span>asd</span></td>
+				<td class="center" style="width: 120px"><a
+					th:onclick="'isEidit('+${person.building_id}+','+${person.owner_id}+',\''+${person.state}+'\')'" title="编辑"><img
+						th:src="@{/static/images/icon_edit.gif}" /></a> </td>
+			</tr>
+
+		</table>
+		<!-- BatchOperation -->
+		<div style="overflow: hidden;">
+			<!-- turn page -->
+			<div class="turnPage center fr">
+				<a th:href="@{'list?pageNum=1&amp;search='+${search}}">首页</a> <a
+					th:href="@{'list?pageNum='+${pageNum-1}+'&amp;search='+${search}}">☜</a> <a
+					th:text="${pageNum}">1</a> <a
+					th:href="@{'list?pageNum='+${pageNum+1}+'&amp;search='+${search}}">☞</a> <a
+					th:href="@{'list?pageNum='+${pageSize}+'&amp;search='+${search}}">末页</a>
+			</div>
+		</div>
+	</div>
+
+<div th:if="${session.usertype} == 普通用户" class="wrap">
+		<div class="page-title">
+			<span class="modular fl"><i></i><em>房屋信息列表</em></span>
+		</div>
+		<div class="operate">
+			<form action="list" method="post">
+				<input id="search" name="search" type="text"
+					class="textBox length-long" placeholder="搜索..." /> <input
+					type="submit" value="查询" class="tdBtn" />
+			</form>
+		</div>
+		<table class="list-style Interlaced">
+			<tr>
+				<th>ID编号</th>
+				<th>名称</th>
+				<th>位置</th>
+				<th>面积</th>
+				<th>状态</th>
+			</tr>
+			<tr th:each="person:${list}">
+				<td th:text="${personStat.index+1}" class="center" style="width: 70px"><span><i>0</i></span></td>
+				<td th:text="${person.bname}" class="center"><span>asd</span></td>
+				<td th:text="${person.address}" class="center"><span>asd</span></td>
+				<td th:text="${person.space}" class="center"><span>asd</span></td>
+				<td th:text="${person.state}" class="center"><span> <i>￥</i> <em>0.00</em>
+				</span></td>
+			</tr>
+
+		</table>
+		<!-- BatchOperation -->
+		<div style="overflow: hidden;">
+			<!-- turn page -->
+			<div class="turnPage center fr">
+				<a th:href="@{'list?pageNum=1&amp;search='+${search}}">首页</a> <a
+					th:href="@{'list?pageNum='+${pageNum-1}+'&amp;search='+${search}}">☜</a> <a
+					th:text="${pageNum}">1</a> <a
+					th:href="@{'list?pageNum='+${pageNum+1}+'&amp;search='+${search}}">☞</a> <a
+					th:href="@{'list?pageNum='+${pageSize}+'&amp;search='+${search}}">末页</a>
+			</div>
+		</div>
+	</div>
+
+<script>
+		function isEidit(building_id,owner_id,state) {
+			if(!owner_id){
+				alert("没有住户的房子不可以编辑");
+				return false;
+			}
+			if(state=="出售"){
+				alert("售出的房屋不可以编辑");
+				return false;
+			}else{
+				window.location.href="updinfo?building_id="+building_id;
+			}
+		}
+
+	</script>
+</body>
+</html>

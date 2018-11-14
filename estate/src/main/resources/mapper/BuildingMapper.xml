@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsl.mapper.BuildingMapper" >
+  <resultMap id="BaseResultMap" type="com.tsl.pojo.Building" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="building_id" property="buildingId" jdbcType="INTEGER" />
+    <result column="bname" property="bname" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="space" property="space" jdbcType="REAL" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="owner_id" property="ownerId" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

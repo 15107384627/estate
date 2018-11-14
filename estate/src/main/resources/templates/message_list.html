@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>故障信息列表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link th:href="@{/static/style/adminStyle.css}" rel="stylesheet"
+	type="text/css" />
+<script th:src="@{/static/js/jquery.js}"></script>
+<script th:src="@{/static/js/public.js}"></script>
+</head>
+<body>
+<div th:if="${session.usertype} == 管理员" class="wrap">
+		<div class="page-title">
+			<span class="modular fl"><i></i><em>故障信息列表</em></span>
+		</div>
+		<div class="operate">
+			<form action="list" method="post">
+				<input id="search" name="search" type="text"
+					class="textBox length-long" placeholder="搜索..." /> <input
+					type="submit" value="查询" class="tdBtn" />
+			</form>
+		</div>
+		<table class="list-style Interlaced">
+			<tr>
+				<th>ID编号</th>
+				<th>故障信息</th>
+				<th>发表时间</th>
+				<th>备注</th>
+				<th>状态</th>
+				<th>住户姓名</th>
+				<th>电话</th>
+				<th>操作</th>
+			</tr>
+			<tr th:each="person:${list}">
+				<td th:text="${personStat.index+1}" class="center"
+					style="width: 70px"><span><i>0</i></span></td>
+				<td th:text="${person.mname}" class="center"><span>asd</span></td>
+				<td th:text="${#dates.format(person.time, 'yyyy-MM-dd hh:mm:ss')}"
+					class="center"><span>asd</span></td>
+				<td th:text="${person.remarks}" class="center"><span> <i>￥</i>
+						<em>0.00</em>
+				</span></td>
+				<td class="center">
+					<img th:if="${person.state}==未完成" th:src="@{/static/images/no.gif}" />
+					<img th:if="${person.state}==已完成" th:src="@{/static/images/yes.gif}" />
+				</td>
+				<td th:text="${person.oname}" class="center"><span>asd</span></td>
+				<td th:text="${person.phone}" class="center"><span>asd</span></td>
+				<td><a href="#" title="编辑" th:onclick="'updState('+${person.message_id}+',\''+${person.state}+'\')'"><img
+						th:src="@{/static/images/icon_edit.gif}" /></a></td>
+			</tr>
+
+		</table>
+
+		<!-- BatchOperation -->
+		<div style="overflow: hidden;">
+			<!-- turn page -->
+			<div class="turnPage center fr">
+				<a th:href="@{'list?pageNum=1&amp;search='+${search}}">首页</a> <a
+					th:href="@{'list?pageNum='+${pageNum-1}+'&amp;search='+${search}}">☜</a> <a
+					th:text="${pageNum}">1</a> <a
+					th:href="@{'list?pageNum='+${pageNum+1}+'&amp;search='+${search}}">☞</a> <a
+					th:href="@{'list?pageNum='+${pageSize}+'&amp;search='+${search}}">末页</a>
+			</div>
+		</div>
+	</div>
+
+<div th:if="${session.usertype} == 普通用户" class="wrap">
+		<div class="page-title">
+			<span class="modular fl"><i></i><em>故障信息列表</em></span>
+		</div>
+		<div class="operate">
+			<form action="normal_list" method="post">
+				<input id="search" name="search" type="text"
+					class="textBox length-long" placeholder="搜索..." /> <input
+					type="submit" value="查询" class="tdBtn" />
+			</form>
+		</div>
+		<table class="list-style Interlaced">
+			<tr>
+				<th>ID编号</th>
+				<th>故障信息</th>
+				<th>发表时间/修理时间</th>
+				<th>备注</th>
+				<th>状态</th>
+			</tr>
+			<tr th:each="person:${list}">
+				<td th:text="${personStat.index+1}" class="center"
+					style="width: 70px"><span><i>0</i></span></td>
+				<td th:text="${person.mname}" class="center"><span>asd</span></td>
+				<td th:text="${#dates.format(person.time, 'yyyy-MM-dd hh:mm:ss')}"
+					class="center"><span>asd</span></td>
+				<td th:text="${person.remarks}" class="center"><span> <i>￥</i>
+						<em>0.00</em>
+				</span></td>
+				<td class="center">
+					<img th:if="${person.state}==未完成" th:src="@{/static/images/no.gif}" />
+					<img th:if="${person.state}==已完成" th:src="@{/static/images/yes.gif}" />
+				</td>
+			</tr>
+
+		</table>
+
+		<!-- BatchOperation -->
+		<div style="overflow: hidden;">
+			<!-- turn page -->
+			<div class="turnPage center fr">
+				<a th:href="@{'normal_list?pageNum=1&amp;search='+${search}}">首页</a> <a
+					th:href="@{'normal_list?pageNum='+${pageNum-1}+'&amp;search='+${search}}">☜</a> <a
+					th:text="${pageNum}">1</a> <a
+					th:href="@{'normal_list?pageNum='+${pageNum+1}+'&amp;search='+${search}}">☞</a> <a
+					th:href="@{'normal_list?pageNum='+${pageSize}+'&amp;search='+${search}}">末页</a>
+			</div>
+		</div>
+	</div>
+
+<script>
+function updState(message_id,state) {
+	if(state=="已完成"){
+		alert("已经修理的不用重复提交");
+	}else{
+		var msg = "确定更改？";
+		if (confirm(msg)==true){
+			
+			$.post("upd", {
+				message_id : message_id
+			}, function(data) {
+				if (data.isSuccess == true) {
+					alert(data.message);
+					window.location.reload();
+				} else {
+					alert(data.message);
+				}
+			}, "json");
+			
+		}else{
+				return false;
+		}
+	}
+}
+</script>
+
+</body>
+</html>

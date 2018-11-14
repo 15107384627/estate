@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsl.mapper.OwnerMapper" >
+  <resultMap id="BaseResultMap" type="com.tsl.pojo.Owner" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="owner_id" property="ownerId" jdbcType="INTEGER" />
+    <result column="oname" property="oname" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

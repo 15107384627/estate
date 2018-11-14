@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+		<title>登录</title>
+		<link th:href="@{/static/css/layout.css}" rel="stylesheet" type="text/css"/>
+		<link th:href="@{/static/css/login.css}" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" th:src="@{/static/js/jquery-1.7.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/static/js/js.js}"></script>
+	</head>
+	<style>
+		.ibar {display: none;}
+	</style>
+	<body class="login-bg">
+		<div class="main ">
+			<!--登录-->
+			<div class="login-dom login-max">
+				<div class="logo text-center">
+					
+				</div>
+				<div class="login container " id="login">
+					<p class="text-big text-center logo-color">
+						同一个账号，连接一切
+					</p>
+					<p class=" text-center margin-small-top logo-color text-small">
+						登录
+					</p>
+					<form class="login-form" action="/islogin" method="post" autocomplete="off">
+						<div class="login-box border text-small" id="box">
+							<div class="name border-bottom">
+								<input type="text" placeholder="帐号" id="username" name="username" datatype="*" nullmsg="请填写帐号信息"/>
+							</div>
+							<div class="pwd">
+								<input type="password" placeholder="密码" datatype="*" id="userpwd" name="userpwd" nullmsg="请填写帐号密码"/>
+							</div>
+						</div>
+						<input type="hidden" name="formhash" value="5abb5d21"/>
+						<input onclick="login()" type="button" class="btn text-center login-btn" value="立即登录"/>
+					</form>
+					<div class="forget">
+						<a href="" class="forget-pwd text-small fl">忘记登录密码？</a><a href="register.html" class="forget-new text-small fr" id="forget-new">创建一个新账号</a>
+					</div>
+				</div>
+			</div>
+
+			
+			<div class="popupDom">
+				<div class="popup text-default">
+				</div>
+			</div>
+		</div>
+	</body>
+
+<script type="text/javascript">
+function login() {
+	var username = $("#username").val();
+	var userpwd = $("#userpwd").val();
+	$.ajax({
+		url : "/islogin",
+		type : "POST",
+		contentType : "application/json;charset=utf-8",
+		data : JSON.stringify({
+			username : username,
+			userpwd : userpwd
+		}),
+		success : function(result) {
+			if (result == true) {
+				$(location).attr('href',
+						'/index');
+			} else {
+				alert("用户名密码错误，登录失败");
+			}
+		}
+	});
+}
+</script>
+</html>

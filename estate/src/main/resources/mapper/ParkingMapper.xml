@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsl.mapper.ParkingMapper" >
+  <resultMap id="BaseResultMap" type="com.tsl.pojo.Parking" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="parking_id" property="parkingId" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="owner_id" property="ownerId" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

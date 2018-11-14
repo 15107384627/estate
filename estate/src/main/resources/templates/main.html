@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>后台管理中心起始页面</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link th:href="@{/static/style/adminStyle.css}" rel="stylesheet"
+	type="text/css" />
+<style>
+html, body {
+	width: 100%;
+	height: 100%;
+}
+</style>
+<script th:src="@{/static/js/jquery.js}"></script>
+<script th:src="@{/static/js/public.js}"></script>
+</head>
+
+<body>
+	<div class="wrap start-page">
+		<h1>
+			<i class="home-icon"></i>欢迎回到我的中心
+		</h1>
+		<dl>
+			<dt>我的房屋</dt>
+			<dd>
+				<ul>
+					<li><span>名称：</span> <span th:text="${building.bname}">539</span></li>
+					<li><span>位置：</span> <span th:text="${building.address}">23</span></li>
+					<li><span>状态：</span> <span th:text="${building.state}">1282</span></li>
+					<li><span>面积：</span> <span th:text="${building.space}">1282</span></li>
+				</ul>
+			</dd>
+		</dl>
+
+		<dl>
+			<dt>我的车位</dt>
+			<dd>
+				<ul>
+					<li><span>车位号：</span> <span th:text="${parking.number}">1252</span></li>
+				</ul>
+			</dd>
+		</dl>
+
+		<dl>
+			<dt>缴费信息</dt>
+			<dd>
+				<ul>
+					<li><span>未缴费：</span> <span th:text="${cost_no}">356</span> <span>条</span></li>
+					<li><span>已缴费：</span> <span th:text="${cost_yes}">356</span> <span>条</span></li>
+				</ul>
+			</dd>
+		</dl>
+
+		<dl>
+			<dt>我的报修</dt>
+			<dd>
+				<ul>
+					<li><span>未修理：</span> <span th:text="${msg_no}">356</span> <span>条</span></li>
+					<li><span>已修理：</span> <span th:text="${msg_yes}">356</span> <span>条</span></li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+</body>
+
+</html>

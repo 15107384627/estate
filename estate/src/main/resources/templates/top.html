@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>header</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link th:href="@{/static/style/adminStyle.css}" rel="stylesheet"
+	type="text/css" />
+</head>
+<body>
+	<div class="header">
+		<div class="logo">
+			<img th:src="@{/static/images/admin_logo.png}" title="物业管理系统" />
+		</div>
+		<div class="fr top-link">
+			<a href="/index/main" target="mainCont" title="访问站点"><i
+				class="home-icon"></i><span>我的</span></a> <a href="#" title="我的名字"><i
+				class="adminIcon"></i><span th:text="${session.usertype}">管理员</span>：<span
+				th:text="${session.username}">DeathGhost</span></a> <a
+				href="/index/rePwdInfo" target="mainCont" title="修改密码"><i
+				class="revisepwdIcon"></i><span>修改密码</span></a> <a href="/login" target="_parent" title="安全退出"><i
+				class="quitIcon"></i><span>安全退出</span></a>
+		</div>
+	</div>
+</body>
+</html>
